@@ -1,4 +1,5 @@
 import timeit
+
 from single_thread import single_thread
 
 number = 1
