@@ -15,9 +15,7 @@ def multi_thread():
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for i, x in enumerate(xs):
             for j, y in enumerate(ys):
-                executor.submit(
-                    calculate_z_pixel, i, j, x, y, zs, max_iter
-                )
+                executor.submit(calculate_z_pixel, i, j, x, y, zs, max_iter)
     plt.imshow(zs.T, cmap="bone", extent=(x_min, x_max, y_min, y_max))
     plt.savefig("mandelbrot-multi_thread.png")
 
