@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "parallel-processing-mandelbrot-py"
+version = "0.1.0"
+description = "🍁🍁🍁 Pythonで並列処理でマンデルブロ集合を描画してみる！"
+authors = ["osawa-koki <koki@osawa.dev>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "parallel_processing_mandelbrot"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
