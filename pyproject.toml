@@ -9,6 +9,7 @@ packages = [{include = "parallel_processing_mandelbrot"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+pillow = "^10.2.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.0.0"
