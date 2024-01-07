@@ -45,7 +45,7 @@ def multi_thread():
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = executor.map(
             lambda x: mandelbrot(*x),
-            [(x, y) for y in range(height) for x in range(width)]
+            [(x, y) for y in range(height) for x in range(width)],
         )
 
         for result in results:
