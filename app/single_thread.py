@@ -1,24 +1,45 @@
-import matplotlib.pyplot as plt
-import numpy as np
+from PIL import Image
 
 
 def single_thread():
-    width = height = 1024
-    x_min, x_max, y_min, y_max = -2.0, 1.0, -1.5, 1.5
-    max_iter = 50
+    width, height = 1024, 1024
+    x_min, x_max = -2.5, 1.5
+    y_min, y_max = -2.0, 2.0
 
-    xs = np.linspace(x_min, x_max, width)
-    ys = np.linspace(y_min, y_max, height)
-    zs = np.empty((len(xs), len(ys)))
-    for i, x in enumerate(xs):
-        for j, y in enumerate(ys):
-            z = x + y * 1j
-            for n in range(max_iter):
-                if abs(z) > 2:
-                    zs[i, j] = n
+    max_iter = 256
+    threshold = 50
+
+    image = Image.new("RGB", (width, height))
+
+    for y in range(height):
+        c_im = y_min + (y_max - y_min) * y / height
+
+        for x in range(width):
+            c_re = x_min + (x_max - x_min) * x / width
+
+            z_re = c_re
+            z_im = c_im
+
+            is_inside = True
+            iter = 0
+
+            while iter < max_iter:
+                z_re2 = z_re * z_re
+                z_im2 = z_im * z_im
+
+                if z_re2 + z_im2 > threshold * threshold:
+                    is_inside = False
                     break
-                z = z * z + x + y * 1j
+
+                z_im = 2.0 * z_re * z_im + c_im
+                z_re = z_re2 - z_im2 + c_re
+
+                iter += 1
+
+            if is_inside:
+                image.putpixel((x, y), (0, 0, 0))
             else:
-                zs[i, j] = max_iter
-    plt.imshow(zs.T, cmap="bone", extent=(x_min, x_max, y_min, y_max))
-    plt.savefig("mandelbrot-single_thread.png")
+                color = iter * 16 % 256
+                image.putpixel((x, y), (color, color, color))
+
+    image.save("mandelbrot-single_thread.png")
