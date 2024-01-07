@@ -16,6 +16,7 @@ poetry run python ./app/main.py
 ```
 
 実行結果は以下のようになります！  
+※ M2 Mac(2023)での実行結果です。  
 
 ```result
 poetry run python ./app/main.py
